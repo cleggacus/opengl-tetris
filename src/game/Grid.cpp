@@ -75,6 +75,26 @@ void Grid::commitBlock(){
             }
         }
     }
+
+    int rowCheckCount = 0;
+    vector<int> removeList;
+
+    for(unsigned int i = 0; i < mWidth * mHeight; i++){
+        rowCheckCount = i%mWidth == 0 ? 0 : rowCheckCount;
+
+        if(mCells[i].getColor() != none)
+            rowCheckCount++;
+
+        if(rowCheckCount == mWidth){
+            removeList.push_back(round(i/mHeight));
+        }
+    }
+
+    cout << removeList.size() << "\n";
+
+    for(unsigned int i = 0; i < removeList.size(); i++){
+        removeRow(removeList[i]);
+    }
     
     onUpdate();
 }
@@ -88,29 +108,11 @@ tuple<bool, int> Grid::getCell(unsigned int x, unsigned int y){
 }
 
 void Grid::updateGrid(){
-    int rowCheckCount = 0;
-    vector<int> removeList;
-
     for(unsigned int i = 0; i < mWidth * mHeight; i++){
         array<Vertex, 4> quad(mCells[i].getQuadVertices());
-
-        if(i%mWidth == 0)
-            rowCheckCount = 0;
-
-        if(mCells[i].getColor() != none)
-            rowCheckCount++;
-
-        if(rowCheckCount == mWidth){
-            removeList.push_back(round(i/mHeight));
-        }
-
         for(unsigned int j = 0; j < 4; j++){
             mVb.populateData(&quad[j], 5 * sizeof(float), (j + i * 4) * 5 * sizeof(float));
         }
-    }
-
-    for(unsigned int i = 0; i < removeList.size(); i++){
-        removeRow(removeList[i]);
     }
 }
 

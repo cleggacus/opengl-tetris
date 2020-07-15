@@ -19,7 +19,7 @@ void Game::onUpdate(float deltaTime, GLFWwindow *window){
 
     if(timeNow - timeLast >= 0.7){
         timeLast = timeNow;
-        mGrid.moveDown();
+        //mGrid.moveDown();
     }
 }
 
