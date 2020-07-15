@@ -1,9 +1,10 @@
 #include "Game.h"
 
-Game::Game() :
+Game::Game(float speed) :
     mClearColor { 0.01f, 0.03f, 0.095f, 1.0f },
     mGrid(10, 20, 400, 800),
-    mRenderer()
+    mRenderer(),
+    mSpeed(speed)
 {
     
 }
@@ -17,9 +18,9 @@ void Game::onUpdate(float deltaTime, GLFWwindow *window){
 
     timeNow = glfwGetTime();
 
-    if(timeNow - timeLast >= 0.7){
+    if(timeNow - timeLast >= 1/mSpeed){
         timeLast = timeNow;
-        //mGrid.moveDown();
+        mGrid.moveDown();
     }
 }
 

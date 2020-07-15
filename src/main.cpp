@@ -17,8 +17,16 @@
 
 using namespace std;
 
-int main(void)
+int main(int argsCount, char *args[])
 {
+    float speed = 1.0f;
+
+    if(argsCount > 1){
+        try{
+            speed = stof(args[1]);
+        }catch(...){}
+    }
+
     GLFWwindow* window;
 
     if (!glfwInit())
@@ -47,7 +55,7 @@ int main(void)
         return 0;
     }
 
-    Game game;
+    Game game(speed);
 
     glCall(glEnable(GL_BLEND));
     glCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));

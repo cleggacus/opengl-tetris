@@ -24,7 +24,7 @@ struct KeyMap{
 
 class Game{
     public:
-        Game();
+        Game(float speed);
         ~Game();
 
         void onUpdate(float deltaTime, GLFWwindow *window);
@@ -38,6 +38,7 @@ class Game{
         double timeLast = glfwGetTime();
         double timeNow = glfwGetTime();
         float mClearColor[4];
+        float mSpeed;
         Renderer mRenderer;
 
         Grid mGrid;
